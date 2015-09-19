@@ -80,5 +80,7 @@ public class CRUDManager {
     }
 
 
-
+    public EntityManager getEm() {
+        return em;
+    }
 }

@@ -6,6 +6,8 @@ import org.jboss.as.testemvcweb.util.ICrudBasic;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tonca on 19/09/2015.
@@ -43,5 +45,10 @@ public class ProdutoRepository implements ICrudBasic<Produto> {
     @Override
     public void delete(Long id) {
         em.delete(Produto.class, id);
+    }
+
+    public List<Produto> findAllOrderedByName() {
+
+        return em.getEm().createQuery(" from Produto p ").getResultList();
     }
 }

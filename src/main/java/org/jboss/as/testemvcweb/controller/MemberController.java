@@ -24,6 +24,7 @@ import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionListener;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -79,6 +80,12 @@ public class MemberController {
         }
         // This is the root cause message
         return errorMessage;
+    }
+
+    public String showProduto(ActionListener actionListener){
+
+        System.out.println(" vai abrir a tela de produtos");
+        return "ProdutoController";
     }
 
 }
