@@ -82,10 +82,6 @@ public class MemberController {
         return errorMessage;
     }
 
-    public String showProduto(ActionListener actionListener){
 
-        System.out.println(" vai abrir a tela de produtos");
-        return "ProdutoController";
-    }
 
 }

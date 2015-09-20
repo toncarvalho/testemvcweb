@@ -1,7 +1,6 @@
 package org.jboss.as.testemvcweb.controller;
 
 import org.jboss.as.testemvcweb.data.ProdutoRepository;
-import org.jboss.as.testemvcweb.model.Member;
 import org.jboss.as.testemvcweb.model.Produto;
 import org.jboss.as.testemvcweb.util.IErrorMessageUtil;
 
@@ -12,6 +11,8 @@ import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
@@ -31,6 +32,7 @@ public class ProdutoController implements IErrorMessageUtil {
 
     private List<Produto> produtoList;
 
+    private Produto produto;
 
 
     @Produces
@@ -52,4 +54,25 @@ public class ProdutoController implements IErrorMessageUtil {
     public void retrieveAllProdutosOrderedByName() {
         produtoList = produtoRepository.findAllOrderedByName();
     }
+
+    public String novo() {
+
+        System.out.println(" deve abrir o cadastro de produtos");
+
+        return "cadastrodeproduto";
+
+    }
+
+    public void alterar(ActionEvent event) {
+        System.out.println("Alterando dados");
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
 }
+

@@ -5,9 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.testemvcweb.data.ProdutoRepository;
-import org.jboss.as.testemvcweb.model.Member;
 import org.jboss.as.testemvcweb.model.Produto;
-import org.jboss.as.testemvcweb.service.MemberRegistration;
 import org.jboss.as.testemvcweb.util.*;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -36,6 +34,7 @@ public class ProdutoRepositoryTest {
                                 "org.jboss.logging:jboss-logging")
                         .withTransitivity()
                         .asFile())
+                .addPackages(true,"testwebmvc")
                 .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                         // Deploy our test datasource

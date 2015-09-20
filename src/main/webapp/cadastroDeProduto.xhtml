@@ -22,36 +22,32 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
-        <h1>Pesquisa de produtos</h1>
+        <h1>Cadastro de produtos</h1>
 
 
         <h2>Produtos</h2>
             <h:panelGroup>
-                <em>Listagem de produtos</em>
+                <em>Dados Básicos</em>
             </h:panelGroup>
-            <p:dataTable var="produto" value="#{produtoController.produtoList}" >
-                <p:column headerText="Id">
-                    <h:outputText value="#{produto.id}" />
-                </p:column>
-
-                <p:column headerText="Código">
-                    <h:outputText value="#{produto.codigo}" />
-                </p:column>
-
-                <p:column headerText="Descrição">
-                    <h:outputText value="#{produto.descricao}" />
-                </p:column>
-
-            </p:dataTable>
 
         <h:form>
+
+            <h:outputText value="Código: *" />
+            <p:inputText value="#{produtoController.produto.codigo}"  label="Código"/>
+<br></br>
+            <h:outputText value="Descrição: *" />
+            <p:inputText value="#{produtoController.produto.descricao}"  label="Código"/>
+
+
+
+
             <p:toolbar>
             <f:facet name="left">
-                <p:commandButton type="submit" value="Novo" icon="ui-icon-document"   action="#{produtoController.novo}"  />
+                <p:commandButton type="button" value="Salvar" icon="ui-icon-document"  action="#{produtoController.salvar}"  />
 
-                <p:commandButton type="submit" value="Alterar" icon="ui-icon-folder-open" actionListener="#{produtoController.alterar}"/>
+                <p:commandButton type="button" value="Cancelar" icon="ui-icon-folder-open" actionListener="#{produtoController.cancelar}"/>
 
-                <p:commandButton type="submit" value="Excluir" icon="ui-icon-trash" />
+
 
             </f:facet>
             </p:toolbar>

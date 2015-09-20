@@ -6,7 +6,6 @@ import org.jboss.as.testemvcweb.util.ICrudBasic;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
