@@ -56,4 +56,5 @@ public class ProdutoRepository implements ICrudBasic<Produto> , Serializable {
 
         return em.getEm().createQuery(" from Produto p ").getResultList();
     }
+
 }

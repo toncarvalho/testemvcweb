@@ -18,8 +18,8 @@ public class ModelBase implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @Version
-    protected Integer version;
+    /*@Version
+    protected Integer version;*/
 
     public Long getId() {
         return id;
@@ -29,13 +29,13 @@ public class ModelBase implements Serializable{
         this.id = id;
     }
 
-    public Integer getVersion() {
+    /*public Integer getVersion() {
         return version;
     }
 
     public void setVersion(Integer version) {
         this.version = version;
-    }
+    }*/
 
     @Override
     public int hashCode() {

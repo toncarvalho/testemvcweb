@@ -12,6 +12,7 @@ import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
 
@@ -27,6 +28,10 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
 
     @Inject
     private ProdutoRepository produtoRepository;
+
+    @Inject
+    private EntityManager entityManager;
+
 
     private List<Produto> produtoList;
 
@@ -96,7 +101,10 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
     }
 
     public String excluir() {
-        System.out.println("deve excluir");
+
+        System.out.println("deve excluir o produto:" + produto);
+
+        produtoList.remove(produto);
         produtoRepository.delete(this.produto.getId());
 
         return "pesquisaproduto";

@@ -46,4 +46,16 @@ public class Produto extends ModelBase implements Serializable{
                 ", descricao='" + descricao + '\'' +
                 '}';
     }
+
+    @Override
+    public Long getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(Long id) {
+        super.setId(id);
+    }
+
+
 }

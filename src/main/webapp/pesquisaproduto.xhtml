@@ -36,25 +36,18 @@
                      rows="10"
                      paginator="true"
                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     rowsPerPageTemplate="2,4,8">
-            <p:column headerText="Id">
+                     rowsPerPageTemplate="2,4,8" emptyMessage="Registros não encontrados">
+            <p:column headerText="Id" filterBy="#{bean.id}"  footerText="exato" filterMatchMode="exact">
                 <h:outputText value="#{bean.id}"/>
             </p:column>
 
-            <p:column headerText="Código">
+            <p:column headerText="Código" filterBy="#{bean.codigo}"  footerText="Contém" filterMatchMode="contains">
                 <h:outputText value="#{bean.codigo}"/>
             </p:column>
 
-            <p:column headerText="Descrição">
+            <p:column headerText="Descrição" filterBy="#{bean.descricao}"  footerText="Começa com" filterMatchMode="startsWith">
                 <h:outputText value="#{bean.descricao}"/>
             </p:column>
-
-            <!--<p:column>
-
-                 <p:commandButton value="Excluir"   title="Delete" action="{produtoController.excluir}" process="@this" >
-                     <f:setPropertyActionListener value="${bean}" target="#{produtoController.produtoSelecionado}" />
-                </p:commandButton>
-            </p:column>-->
 
         </p:dataTable>
 
@@ -67,7 +60,7 @@
                     <p:commandButton type="submit" value="Alterar" icon="ui-icon-folder-open"
                                      action="#{produtoController.alterar}" process="@all"/>
 
-                    <p:commandButton type="submit" value="Excluir" icon="ui-icon-trash" process="@all" action="#{produtoController.excluir}" />
+                    <p:commandButton type="submit" value="Excluir" icon="ui-icon-trash" process="@all" action="#{produtoController.excluir}" update="tabela"/>
 
                 </f:facet>
             </p:toolbar>
