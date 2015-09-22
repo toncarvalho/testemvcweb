@@ -4,6 +4,8 @@ import org.jboss.as.testemvcweb.model.Produto;
 import org.jboss.as.testemvcweb.util.CRUDManager;
 import org.jboss.as.testemvcweb.util.ICrudBasic;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -12,7 +14,8 @@ import java.util.List;
 /**
  * Created by tonca on 19/09/2015.
  */
-@ApplicationScoped
+@Stateless
+@LocalBean
 public class ProdutoRepository implements ICrudBasic<Produto> , Serializable {
 
     @Inject
@@ -44,6 +47,8 @@ public class ProdutoRepository implements ICrudBasic<Produto> , Serializable {
 
     @Override
     public void delete(Long id) {
+
+
         em.delete(Produto.class, id);
     }
 

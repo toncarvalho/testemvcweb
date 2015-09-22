@@ -11,6 +11,7 @@ import java.io.Serializable;
  * e exclusão de entidades do model.
  */
 @Stateless
+@LocalBean
 public class CRUDManager implements Serializable{
 
     @Inject

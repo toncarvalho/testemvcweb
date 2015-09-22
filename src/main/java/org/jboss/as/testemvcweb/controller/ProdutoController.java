@@ -33,6 +33,8 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
     @Named(value = "produto")
     private Produto produto;
 
+    private Produto produtoSelecionado;
+
 
     @Produces
     @Named
@@ -51,7 +53,7 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
 
     @PostConstruct
     public void retrieveAllProdutosOrderedByName() {
-        this.produto= new Produto();
+        this.produto = new Produto();
 
         produtoList = produtoRepository.findAllOrderedByName();
     }
@@ -78,17 +80,22 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
         System.out.println(" deve persistir o produto:" + produto);
 
 
-        Long id = produtoRepository.save(produto);
+        if (produto.getId() == null) {
 
-        System.out.println("gravou o novo produto com o id:" + id);
+            Long id = produtoRepository.save(produto);
 
-        produtoList.add(produto);
+            System.out.println("gravou o novo produto com o id:" + id);
+
+            produtoList.add(produto);
+        } else {
+            produtoRepository.update(produto.getId(), produto);
+        }
 
         return "pesquisaproduto";
     }
 
-    private String excluir(){
-        System.out.println("deve excluir") ;
+    public String excluir() {
+        System.out.println("deve excluir");
         produtoRepository.delete(this.produto.getId());
 
         return "pesquisaproduto";
@@ -111,6 +118,14 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    public Produto getProdutoSelecionado() {
+        return produtoSelecionado;
+    }
+
+    public void setProdutoSelecionado(Produto produtoSelecionado) {
+        this.produtoSelecionado = produtoSelecionado;
     }
 }
 

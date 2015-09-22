@@ -22,6 +22,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
+        <h:form>
         <h1>Pesquisa de produtos</h1>
 
 
@@ -48,15 +49,16 @@
                 <h:outputText value="#{bean.descricao}"/>
             </p:column>
 
-            <p:column>
-                <p:commandButton value="Excluir" type="submit" update=":tabela"   title="Delete" actionListener="{produtoController.excluir}" process="@all" >
-                    <f:setPropertyActionListener value="#{bean}" target="#{produtoController.produto}" />
+            <!--<p:column>
+
+                 <p:commandButton value="Excluir"   title="Delete" action="{produtoController.excluir}" process="@this" >
+                     <f:setPropertyActionListener value="${bean}" target="#{produtoController.produtoSelecionado}" />
                 </p:commandButton>
-            </p:column>
+            </p:column>-->
 
         </p:dataTable>
 
-        <h:form>
+
             <p:toolbar>
                 <f:facet name="left">
                     <p:commandButton type="submit" value="Novo" icon="ui-icon-document"
@@ -65,7 +67,7 @@
                     <p:commandButton type="submit" value="Alterar" icon="ui-icon-folder-open"
                                      action="#{produtoController.alterar}" process="@all"/>
 
-                    <p:commandButton type="submit" value="Excluir" icon="ui-icon-trash" process="@this"/>
+                    <p:commandButton type="submit" value="Excluir" icon="ui-icon-trash" process="@all" action="#{produtoController.excluir}" />
 
                 </f:facet>
             </p:toolbar>
