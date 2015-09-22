@@ -12,14 +12,11 @@ import java.io.Serializable;
  * Classe  base que contem atributos padrão para todas as entidades que vierem a compor  o modelo
  */
 @MappedSuperclass
-public class ModelBase implements Serializable{
+public class ModelBase implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
-
-    /*@Version
-    protected Integer version;*/
 
     public Long getId() {
         return id;
@@ -28,14 +25,6 @@ public class ModelBase implements Serializable{
     public void setId(Long id) {
         this.id = id;
     }
-
-    /*public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }*/
 
     @Override
     public int hashCode() {

@@ -7,6 +7,7 @@ import org.jboss.as.testemvcweb.util.ICrudBasic;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.Query;
 import java.io.Serializable;
 import java.util.List;
 
@@ -56,4 +57,13 @@ public class ProdutoRepository implements ICrudBasic<Produto> , Serializable {
         return em.getEm().createQuery(" from Produto p ").getResultList();
     }
 
+    public List<Produto> pesquisaGenerica(String searchKey) {
+
+
+        Query consulta = em.getEm().createQuery(" from Produto p where p.descricao like:searchKey");
+
+        consulta.setParameter("searchKey", "%" +searchKey + "%");
+
+        return consulta.getResultList();
+    }
 }

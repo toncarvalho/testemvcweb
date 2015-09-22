@@ -3,6 +3,7 @@ package org.jboss.as.testemvcweb.controller;
 import org.jboss.as.testemvcweb.data.ProdutoRepository;
 import org.jboss.as.testemvcweb.model.Produto;
 import org.jboss.as.testemvcweb.util.IErrorMessageUtil;
+import org.jboss.as.testemvcweb.util.StatusScreen;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -11,6 +12,7 @@ import javax.enterprise.event.Reception;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -35,6 +37,8 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
 
 
     private List<Produto> produtoList;
+
+    private String searchKey;
 
 
     @Produces
@@ -69,8 +73,8 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
     public String novo() {
 
         produto = new Produto();
-        produto.setFabricante("000");
-        produto.setDescricao("informa e nova descrição");
+        produto.setFabricante("entre com o fabricante do produto");
+        produto.setDescricao("entre com o nome do produto");
 
         System.out.println("Inicializando tela de cadastro com bean: " + produto);
 
@@ -133,6 +137,14 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
     }
 
 
+    public void pesquisaGenerica(ActionEvent event) {
+
+        System.out.println(" deve executar a pesquisa generica com a chave:" + searchKey);
+
+        produtoList = produtoRepository.pesquisaGenerica(searchKey);
+    }
+
+
     public Produto getProduto() {
         return produto;
     }
@@ -147,6 +159,14 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
 
     public void setProdutoSelecionado(Produto produtoSelecionado) {
         this.produtoSelecionado = produtoSelecionado;
+    }
+
+    public String getSearchKey() {
+        return searchKey;
+    }
+
+    public void setSearchKey(String searchKey) {
+        this.searchKey = searchKey;
     }
 }
 

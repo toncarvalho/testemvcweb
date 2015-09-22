@@ -23,28 +23,44 @@
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
         <h:form>
-        <h1>Pesquisa de produtos</h1>
+            <h1>Pesquisa de produtos</h1>
 
-        <p:dataTable var="bean" value="#{produtoController.produtoList}" selectionMode="single" id="tabela"
-                     selection="#{produtoController.produto}" rowKey="#{bean.id}"
-                     rows="10"
-                     paginator="true"
-                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     rowsPerPageTemplate="2,4,8" emptyMessage="Registros não encontrados"
-                     paginatorPosition="bottom" >
-            <p:column headerText="Id" filterBy="#{bean.id}"  footerText="exato" filterMatchMode="exact" sortBy="#{bean.id}">
-                <h:outputText value="#{bean.id}"/>
-            </p:column>
+            <h:panelGrid columns="3">
+                <h:outputText value="Busca:"/>
+                <p:inputText id="globalFilter" value="${produtoController.searchKey}" style="width:200px"/>
+                <p:commandButton id="btnSearch" icon="ui-icon-search"
+                                 actionListener="#{produtoController.pesquisaGenerica}"
+                                 type="submit"
+                                 process="@this"
+                                 update="tabela"/>
 
-            <p:column headerText="Fabricante" filterBy="#{bean.fabricante}"  footerText="Contém" filterMatchMode="contains" sortBy="#{bean.fabricante}">
-                <h:outputText value="#{bean.fabricante}"/>
-            </p:column>
 
-            <p:column headerText="Descrição" filterBy="#{bean.descricao}"  footerText="Começa com" filterMatchMode="startsWith" sortBy="#{bean.descricao}">
-                <h:outputText value="#{bean.descricao}"/>
-            </p:column>
+            </h:panelGrid>
 
-        </p:dataTable>
+            <p:dataTable var="bean" value="#{produtoController.produtoList}" selectionMode="single" id="tabela"
+                         selection="#{produtoController.produto}" rowKey="#{bean.id}"
+                         rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="2,4,8" emptyMessage="Registros não encontrados"
+                         paginatorPosition="bottom">
+
+                <p:column headerText="Id" filterBy="#{bean.id}" footerText="exato" filterMatchMode="exact"
+                          sortBy="#{bean.id}">
+                    <h:outputText value="#{bean.id}"/>
+                </p:column>
+
+                <p:column headerText="Fabricante" filterBy="#{bean.fabricante}" footerText="Contém"
+                          filterMatchMode="contains" sortBy="#{bean.fabricante}">
+                    <h:outputText value="#{bean.fabricante}"/>
+                </p:column>
+
+                <p:column headerText="Nome" filterBy="#{bean.descricao}" footerText="Começa com"
+                          filterMatchMode="startsWith" sortBy="#{bean.descricao}">
+                    <h:outputText value="#{bean.descricao}"/>
+                </p:column>
+
+            </p:dataTable>
 
 
             <p:toolbar>
@@ -55,13 +71,14 @@
                     <p:commandButton type="submit" value="Alterar" icon="ui-icon-folder-open"
                                      action="#{produtoController.alterar}" process="@all"/>
 
-                    <p:commandButton type="submit" value="Excluir" icon="ui-icon-trash" process="@all" action="#{produtoController.excluir}" update="tabela"/>
+                    <p:commandButton type="submit" value="Excluir" icon="ui-icon-trash" process="@this"
+                                     action="#{produtoController.excluir}" update="tabela"/>
 
                 </f:facet>
             </p:toolbar>
             <h:messages styleClass="messages"
                         errorClass="invalid" infoClass="valid"
-                        warnClass="warning" globalOnly="true" />
+                        warnClass="warning" globalOnly="true"/>
         </h:form>
 
 
