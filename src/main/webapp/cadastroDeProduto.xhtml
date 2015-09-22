@@ -23,33 +23,30 @@
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
         <h1>Cadastro de produtos</h1>
-
-
-        <h2>Produtos</h2>
-            <h:panelGroup>
-                <em>Dados Básicos</em>
-            </h:panelGroup>
+        <h:panelGroup>
+            <em>Dados Básicos</em>
+        </h:panelGroup>
 
         <h:form>
+            <h:panelGrid columns="2">
 
-            <h:outputText value="Código: *" />
-            <p:inputText value="#{produtoController.produto.codigo}"  label="Código"/>
-<br></br>
-            <h:outputText value="Descrição: *" />
-            <p:inputText value="#{produtoController.produto.descricao}"  label="Código"/>
+                <h:outputText value="Código:"/>
+                <p:inputText value="#{produtoController.produto.codigo}" id="edtCodigo" />
 
 
+                <h:outputText value="Descrição:"/>
+                <p:inputText value="#{produtoController.produto.descricao}" id="edtDescricao" />
 
+
+            </h:panelGrid>
 
             <p:toolbar>
-            <f:facet name="left">
-                <p:commandButton type="button" value="Salvar" icon="ui-icon-document"  action="#{produtoController.salvar}"  />
+                <f:facet name="left">
+                    <p:commandButton type="submit" value="Salvar" action="#{produtoController.salvar}" process="@all"/>
 
-                <p:commandButton type="button" value="Cancelar" icon="ui-icon-folder-open" actionListener="#{produtoController.cancelar}"/>
+                    <p:commandButton type="submit" value="Cancelar"  action="#{produtoController.cancelar}" process="@this"/>
 
-
-
-            </f:facet>
+                </f:facet>
             </p:toolbar>
         </h:form>
 

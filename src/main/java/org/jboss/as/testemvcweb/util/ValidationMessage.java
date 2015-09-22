@@ -1,9 +1,11 @@
 package org.jboss.as.testemvcweb.util;
 
+import java.io.Serializable;
+
 /**
  * Classe que contém valores constantes mensagens emitidas pelo sistema.
  */
-public class ValidationMessage {
+public class ValidationMessage implements Serializable {
 
     public static final String UNIQUE = "Já existe";
 

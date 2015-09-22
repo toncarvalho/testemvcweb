@@ -26,36 +26,51 @@
 
 
         <h2>Produtos</h2>
-            <h:panelGroup>
-                <em>Listagem de produtos</em>
-            </h:panelGroup>
-            <p:dataTable var="produto" value="#{produtoController.produtoList}" >
-                <p:column headerText="Id">
-                    <h:outputText value="#{produto.id}" />
-                </p:column>
+        <h:panelGroup>
+            <em>Listagem de produtos</em>
+        </h:panelGroup>
 
-                <p:column headerText="Código">
-                    <h:outputText value="#{produto.codigo}" />
-                </p:column>
+        <p:dataTable var="bean" value="#{produtoController.produtoList}" selectionMode="single" id="tabela"
+                     selection="#{produtoController.produto}" rowKey="#{bean.id}"
+                     rows="10"
+                     paginator="true"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="2,4,8">
+            <p:column headerText="Id">
+                <h:outputText value="#{bean.id}"/>
+            </p:column>
 
-                <p:column headerText="Descrição">
-                    <h:outputText value="#{produto.descricao}" />
-                </p:column>
+            <p:column headerText="Código">
+                <h:outputText value="#{bean.codigo}"/>
+            </p:column>
 
-            </p:dataTable>
+            <p:column headerText="Descrição">
+                <h:outputText value="#{bean.descricao}"/>
+            </p:column>
+
+            <p:column>
+                <p:commandButton value="Excluir" type="submit" update=":tabela"   title="Delete" actionListener="{produtoController.excluir}" process="@all" >
+                    <f:setPropertyActionListener value="#{bean}" target="#{produtoController.produto}" />
+                </p:commandButton>
+            </p:column>
+
+        </p:dataTable>
 
         <h:form>
             <p:toolbar>
-            <f:facet name="left">
-                <p:commandButton type="submit" value="Novo" icon="ui-icon-document"   action="#{produtoController.novo}"  />
+                <f:facet name="left">
+                    <p:commandButton type="submit" value="Novo" icon="ui-icon-document"
+                                     action="#{produtoController.novo}" process="@all"/>
 
-                <p:commandButton type="submit" value="Alterar" icon="ui-icon-folder-open" actionListener="#{produtoController.alterar}"/>
+                    <p:commandButton type="submit" value="Alterar" icon="ui-icon-folder-open"
+                                     action="#{produtoController.alterar}" process="@all"/>
 
-                <p:commandButton type="submit" value="Excluir" icon="ui-icon-trash" />
+                    <p:commandButton type="submit" value="Excluir" icon="ui-icon-trash" process="@this"/>
 
-            </f:facet>
+                </f:facet>
             </p:toolbar>
         </h:form>
+
 
     </ui:define>
 </ui:composition>

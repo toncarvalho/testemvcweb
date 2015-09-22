@@ -6,13 +6,14 @@ import org.jboss.as.testemvcweb.util.ICrudBasic;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by tonca on 19/09/2015.
  */
 @ApplicationScoped
-public class ProdutoRepository implements ICrudBasic<Produto> {
+public class ProdutoRepository implements ICrudBasic<Produto> , Serializable {
 
     @Inject
     private CRUDManager em;

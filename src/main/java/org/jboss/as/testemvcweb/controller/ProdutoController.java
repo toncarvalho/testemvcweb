@@ -5,24 +5,20 @@ import org.jboss.as.testemvcweb.model.Produto;
 import org.jboss.as.testemvcweb.util.IErrorMessageUtil;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.Reception;
-import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-
-import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by tonca on 19/09/2015.
- */
-@Model
-@ManagedBean
-public class ProdutoController implements IErrorMessageUtil {
+
+@Named(value = "produtoController")
+@SessionScoped
+public class ProdutoController implements IErrorMessageUtil, Serializable {
 
     @Inject
     private FacesContext facesContext;
@@ -32,6 +28,9 @@ public class ProdutoController implements IErrorMessageUtil {
 
     private List<Produto> produtoList;
 
+
+    @Produces
+    @Named(value = "produto")
     private Produto produto;
 
 
@@ -52,20 +51,59 @@ public class ProdutoController implements IErrorMessageUtil {
 
     @PostConstruct
     public void retrieveAllProdutosOrderedByName() {
+        this.produto= new Produto();
+
         produtoList = produtoRepository.findAllOrderedByName();
     }
 
     public String novo() {
 
-        System.out.println(" deve abrir o cadastro de produtos");
+        produto = new Produto();
+        produto.setCodigo("000");
+        produto.setDescricao("informa e nova descrição");
+
+        System.out.println("Inicializando tela de cadastro com bean: " + produto);
 
         return "cadastrodeproduto";
 
     }
 
-    public void alterar(ActionEvent event) {
-        System.out.println("Alterando dados");
+    public String salvar() {
+
+        if (produto == null) {
+            System.out.println(" o produto esta nulo!!!");
+            produto = new Produto();
+        }
+
+        System.out.println(" deve persistir o produto:" + produto);
+
+
+        Long id = produtoRepository.save(produto);
+
+        System.out.println("gravou o novo produto com o id:" + id);
+
+        produtoList.add(produto);
+
+        return "pesquisaproduto";
     }
+
+    private String excluir(){
+        System.out.println("deve excluir") ;
+        produtoRepository.delete(this.produto.getId());
+
+        return "pesquisaproduto";
+    }
+
+    public String cancelar() {
+
+        return "pesquisaproduto";
+    }
+
+    public String alterar() {
+
+        return "cadastrodeproduto";
+    }
+
 
     public Produto getProduto() {
         return produto;

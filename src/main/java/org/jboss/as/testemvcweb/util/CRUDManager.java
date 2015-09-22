@@ -4,14 +4,14 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.io.Serializable;
 
 /**
  * Classe de operações de CRUD para as entidades. Esta classe permite a realização simplificada das operações de criação, leitura, alteração
  * e exclusão de entidades do model.
  */
 @Stateless
-@LocalBean
-public class CRUDManager {
+public class CRUDManager implements Serializable{
 
     @Inject
     private EntityManager em;

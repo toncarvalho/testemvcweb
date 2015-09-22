@@ -17,5 +17,5 @@
 
 -- You can use this file to load seed data into the database using SQL statements
 insert into Member (id, name, email, phone_number) values (0, 'John Smith', 'john.smith@mailinator.com', '2125551212');
-insert into Produto (codigo,descricao) values (0,'Produto de teste'),(2,'Aço'),(3,'Madeira'),(4,'Ferro');
+insert into Produto (codigo,descricao) values (0,'Produto de teste'),(2,'Aluminio'),(3,'Madeira'),(4,'Ferro');
 

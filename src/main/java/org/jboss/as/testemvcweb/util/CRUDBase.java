@@ -5,10 +5,11 @@ import org.jboss.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
 
-public abstract class CRUDBase<T extends ModelBase> {
+public abstract class CRUDBase<T extends ModelBase> implements Serializable {
 
 
     @Inject
