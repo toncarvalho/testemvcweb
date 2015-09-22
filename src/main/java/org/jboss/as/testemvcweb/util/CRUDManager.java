@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Stateless
 @LocalBean
-public class CRUDManager implements Serializable{
+public class CRUDManager implements Serializable {
 
     @Inject
     private EntityManager em;
@@ -47,7 +47,7 @@ public class CRUDManager implements Serializable{
      *
      * @param entity Entidade com os valores a serem alterados.
      */
-    public <T extends ModelBase> void update(Class<T> clazz, T entity) {
+    /*public <T extends ModelBase> void update(Class<T> clazz, T entity) {
         if (entity != null && entity.getId() != null) {
             T existing = em.find(clazz, entity.getId());
             if (existing != null) {
@@ -66,8 +66,12 @@ public class CRUDManager implements Serializable{
             throw new IllegalArgumentException(String.format("Dados da entidade %s devem existir e incluir o valor de id",
                     clazz.getSimpleName()));
         }
-    }
+    }*/
 
+    public <T extends ModelBase> void update(Class<T> clazz, T entity) {
+        em.merge(entity);
+        em.flush();
+    }
 
     /**
      * Executa uma remoção de entidade do banco de dados.

@@ -20,6 +20,8 @@ import java.util.List;
 @SessionScoped
 public class ProdutoController implements IErrorMessageUtil, Serializable {
 
+    private StatusScreen statusScreen = StatusScreen.PESQUISANDO;
+
     @Inject
     private FacesContext facesContext;
 
@@ -66,31 +68,30 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
 
         System.out.println("Inicializando tela de cadastro com bean: " + produto);
 
+        this.statusScreen = StatusScreen.INSERINDO;
+
         return "cadastrodeproduto";
 
     }
 
     public String salvar() {
 
-        if (produto == null) {
-            System.out.println(" o produto esta nulo!!!");
-            produto = new Produto();
-        }
-
         System.out.println(" deve persistir o produto:" + produto);
 
-
-        if (produto.getId() == null) {
+        if (this.statusScreen.equals(StatusScreen.INSERINDO)) {
 
             Long id = produtoRepository.save(produto);
 
             System.out.println("gravou o novo produto com o id:" + id);
 
             produtoList.add(produto);
-        } else {
+
+        } else if (this.statusScreen.equals(StatusScreen.EDITANDO)) {
+            System.out.println(" o produto é: " + produto + " e o estado é :" + this.statusScreen);
             produtoRepository.update(produto.getId(), produto);
         }
 
+        this.statusScreen = StatusScreen.PESQUISANDO;
         return "pesquisaproduto";
     }
 
@@ -107,6 +108,7 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
     }
 
     public String alterar() {
+        this.statusScreen = StatusScreen.EDITANDO;
 
         return "cadastrodeproduto";
     }
