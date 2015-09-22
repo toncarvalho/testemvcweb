@@ -25,27 +25,22 @@
         <h:form>
         <h1>Pesquisa de produtos</h1>
 
-
-        <h2>Produtos</h2>
-        <h:panelGroup>
-            <em>Listagem de produtos</em>
-        </h:panelGroup>
-
         <p:dataTable var="bean" value="#{produtoController.produtoList}" selectionMode="single" id="tabela"
                      selection="#{produtoController.produto}" rowKey="#{bean.id}"
                      rows="10"
                      paginator="true"
                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     rowsPerPageTemplate="2,4,8" emptyMessage="Registros não encontrados">
-            <p:column headerText="Id" filterBy="#{bean.id}"  footerText="exato" filterMatchMode="exact">
+                     rowsPerPageTemplate="2,4,8" emptyMessage="Registros não encontrados"
+                     paginatorPosition="bottom" >
+            <p:column headerText="Id" filterBy="#{bean.id}"  footerText="exato" filterMatchMode="exact" sortBy="#{bean.id}">
                 <h:outputText value="#{bean.id}"/>
             </p:column>
 
-            <p:column headerText="Código" filterBy="#{bean.codigo}"  footerText="Contém" filterMatchMode="contains">
+            <p:column headerText="Código" filterBy="#{bean.codigo}"  footerText="Contém" filterMatchMode="contains" sortBy="#{bean.codigo}">
                 <h:outputText value="#{bean.codigo}"/>
             </p:column>
 
-            <p:column headerText="Descrição" filterBy="#{bean.descricao}"  footerText="Começa com" filterMatchMode="startsWith">
+            <p:column headerText="Descrição" filterBy="#{bean.descricao}"  footerText="Começa com" filterMatchMode="startsWith" sortBy="#{bean.descricao}">
                 <h:outputText value="#{bean.descricao}"/>
             </p:column>
 
