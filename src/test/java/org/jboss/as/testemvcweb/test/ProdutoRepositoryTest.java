@@ -26,7 +26,7 @@ public class ProdutoRepositoryTest {
     @Deployment
     public static Archive<?> createTestArchive() {
         return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addClasses(Produto.class, ProdutoRepository.class, Resources.class, CRUDBase.class, CRUDManager.class, ICrudBasic.class, ModelBase.class, HashCodeBuilder.class, EqualsBuilder.class)
+                .addClasses(Produto.class, ProdutoRepository.class, Resources.class, CRUDManager.class, ICrudBasic.class, ModelBase.class, HashCodeBuilder.class, EqualsBuilder.class)
                 .addAsLibraries(Maven.resolver()
                         .loadPomFromFile("pom.xml")
                         .resolve("org.apache.commons:commons-lang3",
@@ -49,7 +49,7 @@ public class ProdutoRepositoryTest {
     public void testeProduto(){
 
         Produto produto = new Produto();
-        produto.setCodigo("001");
+        produto.setFabricante("001");
         produto.setDescricao("Descricao do produto");
 
         produtoRepository.save(produto);

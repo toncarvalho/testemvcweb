@@ -9,6 +9,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.Reception;
 import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -68,7 +69,7 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
     public String novo() {
 
         produto = new Produto();
-        produto.setCodigo("000");
+        produto.setFabricante("000");
         produto.setDescricao("informa e nova descrição");
 
         System.out.println("Inicializando tela de cadastro com bean: " + produto);
@@ -79,33 +80,43 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
 
     }
 
-    public String salvar() {
+    public String salvar() throws Exception {
 
-        System.out.println(" deve persistir o produto:" + produto);
+        try {
 
-        if (this.statusScreen.equals(StatusScreen.INSERINDO)) {
 
-            Long id = produtoRepository.save(produto);
+            if (this.statusScreen.equals(StatusScreen.INSERINDO)) {
 
-            System.out.println("gravou o novo produto com o id:" + id);
+                Long id = produtoRepository.save(produto);
 
-            produtoList.add(produto);
+                System.out.println("gravou o novo produto com o id:" + id);
 
-        } else if (this.statusScreen.equals(StatusScreen.EDITANDO)) {
-            System.out.println(" o produto é: " + produto + " e o estado é :" + this.statusScreen);
-            produtoRepository.update(produto.getId(), produto);
+                produtoList.add(produto);
+
+            } else if (this.statusScreen.equals(StatusScreen.EDITANDO)) {
+                System.out.println(" o produto é: " + produto + " e o estado é :" + this.statusScreen);
+                produtoRepository.update(produto.getId(), produto);
+            }
+
+            this.statusScreen = StatusScreen.PESQUISANDO;
+        } catch (Exception e) {
+            String errorMessage = getRootErrorMessage(e);
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Falha ao Salvar registro!!!");
+            facesContext.addMessage(null, m);
         }
-
-        this.statusScreen = StatusScreen.PESQUISANDO;
         return "pesquisaproduto";
     }
 
-    public String excluir() {
+    public String excluir() throws Exception {
+        try {
+            produtoList.remove(produto);
+            produtoRepository.delete(this.produto.getId());
 
-        System.out.println("deve excluir o produto:" + produto);
-
-        produtoList.remove(produto);
-        produtoRepository.delete(this.produto.getId());
+        } catch (Exception e) {
+            String errorMessage = getRootErrorMessage(e);
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Falha ao excluir registro!!!");
+            facesContext.addMessage(null, m);
+        }
 
         return "pesquisaproduto";
     }
@@ -115,7 +126,7 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
         return "pesquisaproduto";
     }
 
-    public String alterar() {
+    public String alterar() throws Exception {
         this.statusScreen = StatusScreen.EDITANDO;
 
         return "cadastrodeproduto";

@@ -36,8 +36,8 @@
                 <h:outputText value="#{bean.id}"/>
             </p:column>
 
-            <p:column headerText="Código" filterBy="#{bean.codigo}"  footerText="Contém" filterMatchMode="contains" sortBy="#{bean.codigo}">
-                <h:outputText value="#{bean.codigo}"/>
+            <p:column headerText="Fabricante" filterBy="#{bean.fabricante}"  footerText="Contém" filterMatchMode="contains" sortBy="#{bean.fabricante}">
+                <h:outputText value="#{bean.fabricante}"/>
             </p:column>
 
             <p:column headerText="Descrição" filterBy="#{bean.descricao}"  footerText="Começa com" filterMatchMode="startsWith" sortBy="#{bean.descricao}">
@@ -59,6 +59,9 @@
 
                 </f:facet>
             </p:toolbar>
+            <h:messages styleClass="messages"
+                        errorClass="invalid" infoClass="valid"
+                        warnClass="warning" globalOnly="true" />
         </h:form>
 
 

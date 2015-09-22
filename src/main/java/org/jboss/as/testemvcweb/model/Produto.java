@@ -15,19 +15,24 @@ import java.io.Serializable;
 public class Produto extends ModelBase implements Serializable{
 
     @NotNull(message = ValidationMessage.NOT_NULL)
-    @Size(min = 1, max = 20, message = ValidationMessage.SIZE)
-    private String codigo;
+    @Size(min = 1, max = 200, message = ValidationMessage.SIZE)
+    private String fabricante;
 
     @NotNull(message = ValidationMessage.NOT_NULL)
     @Size(min = 3, max = 200, message = ValidationMessage.SIZE)
     private String descricao;
 
-    public String getCodigo() {
-        return codigo;
+
+
+
+
+
+    public String getFabricante() {
+        return fabricante;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
     }
 
     public String getDescricao() {
@@ -42,7 +47,7 @@ public class Produto extends ModelBase implements Serializable{
     @Override
     public String toString() {
         return "Produto{" +
-                "codigo='" + codigo + '\'' +
+                "fabricante='" + fabricante + '\'' +
                 ", descricao='" + descricao + '\'' +
                 '}';
     }

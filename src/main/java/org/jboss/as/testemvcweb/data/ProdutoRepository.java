@@ -6,7 +6,6 @@ import org.jboss.as.testemvcweb.util.ICrudBasic;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
@@ -25,7 +24,7 @@ public class ProdutoRepository implements ICrudBasic<Produto> , Serializable {
     public Produto create() {
 
         Produto produto = new Produto();
-        produto.setCodigo("000");
+        produto.setFabricante("000");
         produto.setDescricao("entre com a descrição");
         return produto;
     }
