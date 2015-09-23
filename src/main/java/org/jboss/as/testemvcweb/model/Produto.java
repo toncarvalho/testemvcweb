@@ -22,11 +22,6 @@ public class Produto extends ModelBase implements Serializable{
     @Size(min = 3, max = 200, message = ValidationMessage.SIZE)
     private String descricao;
 
-
-
-
-
-
     public String getFabricante() {
         return fabricante;
     }

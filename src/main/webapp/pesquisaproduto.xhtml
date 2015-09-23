@@ -27,11 +27,11 @@
 
             <h:panelGrid columns="3">
                 <h:outputText value="Busca:"/>
-                <p:inputText id="globalFilter" value="${produtoController.searchKey}" style="width:200px"/>
+                <p:inputText id="globalFilter" value="#{produtoController.searchKey}" style="width:200px"/>
                 <p:commandButton id="btnSearch" icon="ui-icon-search"
                                  actionListener="#{produtoController.pesquisaGenerica}"
                                  type="submit"
-                                 process="@this"
+                                 process="@all"
                                  update="tabela"/>
 
 

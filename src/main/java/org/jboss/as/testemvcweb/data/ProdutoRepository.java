@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Stateless
 @LocalBean
-public class ProdutoRepository implements ICrudBasic<Produto> , Serializable {
+public class ProdutoRepository implements ICrudBasic<Produto>, Serializable {
 
     @Inject
     private CRUDManager em;
@@ -59,10 +59,42 @@ public class ProdutoRepository implements ICrudBasic<Produto> , Serializable {
 
     public List<Produto> pesquisaGenerica(String searchKey) {
 
+        List<Produto> result = null;
 
-        Query consulta = em.getEm().createQuery(" from Produto p where p.descricao like:searchKey");
+        /*try {
+            FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em.getEm());
 
-        consulta.setParameter("searchKey", "%" +searchKey + "%");
+            fullTextEntityManager = Search.getFullTextEntityManager(em.getEm());
+
+            fullTextEntityManager.createIndexer().startAndWait();
+
+
+            //em.getTransaction().begin();
+
+        *//* create native Lucene query unsing the query DSL
+         alternatively you can write the Lucene query using the Lucene query parser
+         or the Lucene programmatic API. The Hibernate Search DSL is recommended though*//*
+            QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Produto.class).get();
+            org.apache.lucene.search.Query luceneQuery = qb.keyword().onFields("codigo", "descricao").matching(searchKey).createQuery();
+
+            // wrap Lucene query in a javax.persistence.Query
+            javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Produto.class);
+
+            // execute search
+            result = jpaQuery.getResultList();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return result;*/
+
+        Query consulta = em.getEm().createQuery(" from Produto p where p.descricao like :searchKey");
+
+
+        consulta.setParameter("searchKey", "%" + searchKey + "%");
+
+
 
         return consulta.getResultList();
     }
