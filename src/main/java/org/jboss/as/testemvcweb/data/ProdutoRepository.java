@@ -1,5 +1,9 @@
 package org.jboss.as.testemvcweb.data;
 
+
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.jboss.as.testemvcweb.model.Produto;
 import org.jboss.as.testemvcweb.util.CRUDManager;
 import org.jboss.as.testemvcweb.util.ICrudBasic;
@@ -61,41 +65,24 @@ public class ProdutoRepository implements ICrudBasic<Produto>, Serializable {
 
         List<Produto> result = null;
 
-        /*try {
-            FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em.getEm());
-
-            fullTextEntityManager = Search.getFullTextEntityManager(em.getEm());
-
-            fullTextEntityManager.createIndexer().startAndWait();
-
-
-            //em.getTransaction().begin();
-
-        *//* create native Lucene query unsing the query DSL
-         alternatively you can write the Lucene query using the Lucene query parser
-         or the Lucene programmatic API. The Hibernate Search DSL is recommended though*//*
+        if (!searchKey.isEmpty()) {
+            FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em.getEm());
             QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Produto.class).get();
-            org.apache.lucene.search.Query luceneQuery = qb.keyword().onFields("codigo", "descricao").matching(searchKey).createQuery();
-
+            org.apache.lucene.search.Query luceneQuery = qb.keyword().onFields("fabricante", "descricao").matching(searchKey).createQuery();
             // wrap Lucene query in a javax.persistence.Query
             javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Produto.class);
-
             // execute search
             result = jpaQuery.getResultList();
+            return result;
+        } else {
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            Query consulta = em.getEm().createQuery(" from Produto p where p.descricao like :searchKey");
+
+
+            consulta.setParameter("searchKey", "%" + searchKey + "%");
+
+
+            return consulta.getResultList();
         }
-
-        return result;*/
-
-        Query consulta = em.getEm().createQuery(" from Produto p where p.descricao like :searchKey");
-
-
-        consulta.setParameter("searchKey", "%" + searchKey + "%");
-
-
-
-        return consulta.getResultList();
     }
 }

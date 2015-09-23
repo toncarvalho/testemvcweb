@@ -38,7 +38,7 @@ public class ProdutoController implements IErrorMessageUtil, Serializable {
 
     private List<Produto> produtoList;
 
-    private String searchKey;
+    private String searchKey ="";
 
 
     @Produces
